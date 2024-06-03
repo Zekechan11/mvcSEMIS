@@ -1,0 +1,182 @@
+@using semissssloan.Entities
+
+@model semissssloan.Entities.ClientInfo
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a style="text-decoration: none;color:white;" href="../../client">Client</a></li>
+    <li class="breadcrumb-item active">Update client information</li>
+  </ol>
+</nav>
+
+@* <h1>Update client information</h1> *@
+
+<h1 style="color: white;">Enter new Client</h1>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    form {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-weight: 400;
+    }
+
+    input[type="submit"] {
+        width: auto;
+        padding: 10px 20px;
+        color: #040404;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+
+    form {
+        background: rgba(245, 243, 243, 0.32);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3.1px);
+        -webkit-backdrop-filter: blur(3.1px);
+        border: 1px solid rgba(255, 255, 255, 1);
+    }
+
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-cta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+</style>
+
+
+<form asp-action="Update" method="post">
+
+    <input type="hidden" asp-for="Id">
+
+<div class="row">
+     <div class="form-group col-md-6">
+        <label>User Type</label>
+            <select asp-for="UserType" id="UserType" class="form-control" required>
+                @foreach (var userType in ViewData["UserTypes"] as List<UserType>)
+                {
+                    <option value="@userType.Id">@userType.Name</option>
+                }
+            </select>
+        <span asp-validation-for="UserType" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="MiddleName"></label>
+        <input asp-for="MiddleName" class="form-control">
+        <span asp-validation-for="MiddleName" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control">
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="ZipCode"></label>
+        <input asp-for="ZipCode" class="form-control">
+        <span asp-validation-for="ZipCode" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="Birthday"></label>
+        <input asp-for="Birthday" class="form-control" id="birthdayInput" type="date">
+        <span asp-validation-for="Birthday" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" id="ageInput">
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="NameOfFather"></label>
+        <input asp-for="NameOfFather" class="form-control">
+        <span asp-validation-for="NameOfFather" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="NameOfMother"></label>
+        <input asp-for="NameOfMother" class="form-control">
+        <span asp-validation-for="NameOfMother" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label>Civil Status</label>
+            <select asp-for="CivilStatus" class="form-control">
+                <option selected disabled>CivilStatus</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+            </select>
+        <span asp-validation-for="CivilStatus" class="text-danger"></span>
+    </div>
+     <div class="form-group col-md-6">
+        <label asp-for="Religion"></label>
+        <input asp-for="Religion" class="form-control">
+        <span asp-validation-for="Religion" class="text-danger"></span>
+    </div>
+     <div class="form-grou">
+        <label asp-for="Occupation"></label>
+        <input asp-for="Occupation" class="form-control">
+        <span asp-validation-for="Occupation" class="text-danger"></span>
+    </div>
+</div>
+    <div class="btn-cta">
+        <button type="submit" class="btn btn-info">Update</button>
+    </div>
+
+</form>
+
+
+@section Scripts {
+    <script>
+    
+        function calculateAge() {
+            var currentDate = new Date();
+            var birthday = new Date(document.getElementById('birthdayInput').value);
+            var age = currentDate.getFullYear() - birthday.getFullYear();
+            if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() == birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
+                age--;
+            }
+            document.getElementById('ageInput').value = age;
+        }
+
+      
+        document.getElementById('birthdayInput').addEventListener('change', calculateAge);
+  </script>
+}

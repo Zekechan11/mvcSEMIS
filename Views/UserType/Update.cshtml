@@ -1,0 +1,51 @@
+@model semissssloan.Entities.UserType
+
+<h1 class="text-white">Update UserType</h1>
+
+<style>
+    h2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form input {
+        margin-top: 10px;
+    }
+
+    .card1 {
+        background: rgba(245, 243, 243, 0.32);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3.1px);
+        -webkit-backdrop-filter: blur(3.1px);
+        border: 1px solid rgba(255, 255, 255, 1);
+    }
+
+    .btn-primary {
+        margin-left: 10px;
+    }
+</style>
+
+<center style="position: relative;top:200px;">
+    <div class="card card1" style="width: 30rem;">
+        <h2 class="mt-3">
+            Update User Type
+        </h2>
+
+        <div class="card-body">
+            <form asp-action="UpdateUserType" method="post">
+                <div class="mb-3">
+                    <input type="hidden" asp-for="Id">
+                    <label asp-for="Name" class="form-label float-start">Name</label>
+                    <input asp-for="Name" type="text" name="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="footer">
+                    <input type="submit" class="btn btn-info" value="Update">
+                </div>
+            </form>
+        </div>
+    </div>
+</center>

@@ -1,0 +1,46 @@
+@model List<semissssloan.Entities.UserType>
+
+<button  class="btn btn-success mb-4 mt-4" data-bs-toggle="modal" data-bs-target="#addModal">Add new usertype</button>
+
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr class="text-center">
+            <th class="col">Id</th>
+            <th class="col">Name</th>
+            <th class="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var userType in Model){
+        <tr class="text-center">
+            <th>@userType.Id</th>
+            <td>@userType.Name</td>
+            <td>
+                <a class="btn btn-warning" asp-action="Update" asp-route-id="@userType.Id">Edit</a>
+                <a class="btn btn-danger" href="/usertype/delete/@userType.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="modal" id="addModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                @using (Html.BeginForm("AddUserType", "UserType", FormMethod.Post, new { id = "addUserTypeForm" }))
+                {
+                    <div class="row">
+                        <input type="text" class="form-control mb-2" placeholder="Name" name="name" required>
+                    </div>
+
+                    <div class="float-end">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

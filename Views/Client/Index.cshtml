@@ -1,0 +1,86 @@
+@model IEnumerable<semissssloan.ViewModels.ClientInfoViewModel>
+
+<style>
+    .card{
+      background: rgba( 255, 255, 255, 0.1 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur( 4px );
+      -webkit-backdrop-filter: blur( 4px );
+      border-radius: 10px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+      color: white;
+    }
+</style>
+
+<a class="btn btn-success mt-4" href="/client/create">Add new client</a>
+
+<div class="row mt-4">
+    @foreach (var client in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">@client.FirstName @client.MiddleName @client.LastName</h5>
+                    <p class="card-text">User Type: @client.UserTypeName</p>
+                    <p class="card-text">Address: @client.Address</p>
+                    <p class="card-text">ZipCode: @client.ZipCode</p>
+                    <p class="card-text">BirthDate: @client.Birthdate.ToString("d")</p>
+                    <p class="card-text">Age: @client.Age</p>
+                    @* <p class="card-text">Name of Father: @client.NameofFather</p>
+                    <p class="card-text">Name of Mother: @client.NameofMother</p>
+                    <p class="card-text">Civil Status: @client.Civilstatus</p>
+                    <p class="card-text">Religion: @client.Religion</p>
+                    <p class="card-text">Occupation: @client.Occupation</p> *@
+                   @* <a asp-action="ViewLoan" asp-route-id="@client.Id"><button type="button" class="btn btn-success">Add Loan</button></a> *@
+                  <a asp-controller="Loan" asp-action="ViewLoan" asp-route-id="@client.Id"><button type="button" class="btn btn-success">Add Loan</button></a>
+
+                    <a type="button" style="color: white;" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        onclick="showClientDetails('@client.NameofFather', '@client.NameofMother', '@client.CivilStatus', '@client.Religion', '@client.Occupation')">More Info</a>
+                    <a class="btn btn-warning text-white" asp-action="Update" asp-route-id="@client.Id">Update</a>
+                    <a class="" href="/clientinfo/delete/@client.Id">
+                        <i class="fa-solid fa-trash-can" style="color: red;position:absolute;right:25px;bottom:265px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Client Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group" id="clientDetails">
+          @foreach (var Clientinfo in Model)
+          {
+            <li class="list-group-item">@Clientinfo.NameofFather</li>
+            <li class="list-group-item">@Clientinfo.NameofMother</li>
+            <li class="list-group-item">@Clientinfo.CivilStatus</li>
+            <li class="list-group-item">@Clientinfo.Religion</li>
+            <li class="list-group-item">@Clientinfo.Occupation</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section scripts {
+
+  <script>
+    function showClientDetails(father, mother, civilStatus, religion, occupation) {
+      var modalBody = document.getElementById("clientDetails");
+      modalBody.innerHTML = '';
+      modalBody.innerHTML += '<li class="list-group-item"><strong>Name of Father:</strong> ' + father + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item"><strong>Name of Mother:</strong> ' + mother + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item"><strong>Civil Status:</strong> ' + civilStatus + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item"><strong>Religion:</strong> ' + religion + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item"><strong>Occupation:</strong> ' + occupation + '</li>';
+    }
+  </script>
+}

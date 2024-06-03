@@ -1,0 +1,68 @@
+<div class="modal" id="addLoanModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                @* @using (Html.BeginForm("ViewLoan", "Loan", FormMethod.Post))
+                { *@
+                <form action="ViewLoan" method="post">
+                    <div class="row">
+                        <input type="hidden" name="ClientId" value="@ViewData["ClientId"]" />
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>Date loan created</label>
+                            <input type="date" class="form-control" name="DateCreated"
+                                value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>Loan Type</label>
+                            <select class="form-control" name="Type">
+                                <option selected disabled>Loan Type</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>Amount to borrow</label>
+                            <input type="number" id="amount" name="Amount" class="form-control" placeholder="0">
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>Interest (%)</label>
+                            <input type="number" id="interest" name="Interest" class="form-control" placeholder="0">
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>No of payments</label>
+                            <input type="number" id="noOfPayments" name="NoOfPayment" class="form-control" placeholder="0">
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>Deduction</label>
+                            <input type="number" id="deduction" name="Deduction" class="form-control" placeholder="0">
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                            <label>Interested amount</label>
+                            <input type="text" id="interestedAmount" name="InterestAmount" class="form-control" placeholder="0" readonly>
+                        </div>
+
+                        <div class="form-group col-md-6 mt-3 mb-3">
+                            <label>Bring home amount</label>
+                            <input type="text" id="bringHomeAmount" name="Receivable" class="form-control" placeholder="0" readonly>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success float-end">Save</button>
+                    </div>
+                </form>
+                @* } *@
+            </div>
+        </div>
+    </div>
+</div>

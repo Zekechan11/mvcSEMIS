@@ -1,0 +1,42 @@
+@model List<semissssloan.Entities.Loan>
+
+<button  class="btn btn-success mb-4 mt-4" data-bs-toggle="modal" data-bs-target="#addLoanModal">Add new loan</button>
+
+<table class="table table-hover table-striped bg-white">
+    <thead>
+        <tr class="text-dark text-center">
+            <th >Id</th>
+            <th >Type</th>
+            <th>No Payments</th>
+            <th>Total Payments</th>
+            <th>Collected</th>
+            <th>Collectables</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var loanData in Model)
+        {
+            <tr class="text-dark text-center">
+                <td>@loanData.Id</td>
+                <td>@loanData.Type</td>
+                <td>@loanData.NoOfPayment</td>
+                <td>@loanData.TotalPayable</td>
+                <td>@loanData.Collected</td>
+                <td>@loanData.Collectable</td>
+                <td>@(loanData.Collectable != 0 ? "Pending" : "Paid")</td>
+                <td>
+                    <a class="btn btn-success" asp-controller="Payment" asp-action="Index" asp-route-id="@loanData.Id">Payments</a>
+                    @* <a class="btn btn-danger" asp-action="Delete">Delete</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@await Html.PartialAsync("_AddLoan.cshtml")
+
+@section Scripts {
+    <script src="~/js/addloan.js"></script>
+}
