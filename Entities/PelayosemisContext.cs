@@ -21,6 +21,8 @@ public partial class PelayosemisContext : DbContext
 
     public virtual DbSet<Payment> Payments { get; set; }
 
+    public virtual DbSet<Transac> Transacs { get; set; }
+
     public virtual DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -87,12 +89,22 @@ public partial class PelayosemisContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__Payment__9B556A3809A0E960");
+            entity.HasKey(e => e.PaymentId).HasName("PK__Payment__9B556A387B227D71");
 
             entity.ToTable("Payment");
 
             entity.Property(e => e.Collectable).HasColumnType("decimal(10, 0)");
             entity.Property(e => e.Date).HasColumnType("date");
+        });
+
+        modelBuilder.Entity<Transac>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Transac__3214EC07CE7B7B6F");
+
+            entity.ToTable("Transac");
+
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Date).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<UserType>(entity =>

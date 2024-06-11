@@ -1,35 +1,48 @@
-@model List<semissssloan.Entities.Payment>
+@model IEnumerable<semissssloan.ViewModels.PaymentViewModel>
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" ><a style="text-decoration: none;color:white;" class="link user-select-none" href="../../loan/viewloan/@ViewData["ClientId"]">Loan</a></li>
+        <li class="breadcrumb-item"><a class="link user-select-none" style="text-decoration: none;color:white;"
+                href="../../loan/viewloan/@ViewData["ClientId"]">Loan</a></li>
         <li class="breadcrumb-item active">Loan Schedule</li>
     </ol>
 </nav>
 
 <table class="table table-hover table-bordered bg-white">
     <thead>
-        <tr class="text-dark text-center">
+        <tr class="text-center">
             <th>Id</th>
             <th>Collectables</th>
             <th>Date</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var schedDate in Model)
         {
-            <tr class="text-dark text-center">
+            <tr class="text-center">
                 <td>@schedDate.PaymentId</td>
-                <td>@schedDate.Collectable</td>
+                <td>@schedDate.Collectable.ToString("F0")</td>
                 <td>@schedDate.Date.ToString("MMM dd yyyy")</td>
-                <td>@(schedDate.Collectable != 0 ? "Unpaid" : "Paid")</td>
-                <td>
+                <td class="text-center">
+                    <span
+                        class="badge rounded-pill @(schedDate.Collectable != 0 ? (schedDate.Collectable == schedDate.CollectableOG ? "text-black" : "text-black") : "text-black")">
+                        @(schedDate.Collectable != 0 ? (schedDate.Collectable == schedDate.CollectableOG ? "Unpaid" :
+                            "Partial") : "Paid")
+                    </span>
+                </td>
+                <td class="text-center">
                     @if (schedDate.Collectable != 0)
                     {
                         <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#payLoanModal"
                             onclick="getPayment(@schedDate.LoanId, @schedDate.Collectable, @schedDate.PaymentId)">Pay</a>
+                    }
+                    else
+                    {
+                        <p>
+                            Done
+                        </p>
                     }
                 </td>
             </tr>
@@ -40,5 +53,5 @@
 @await Html.PartialAsync("_Pay.cshtml")
 
 @section Scripts {
-    <script src="~/js/payment.js"></script>
+    <script src="~/js/payment.js" asp-append-version="true"></script>
 }
