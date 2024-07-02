@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<PelayosemisContext>( options => 
-    options.UseSqlServer("Server=LOCALHOST\\SQLEXPRESS;Database=Lawas;TrustServerCertificate=true;Trusted_Connection=True")
+    options.UseSqlServer("Server=LOCALHOST\\SQLEXPRESS;Database=pelayosemis;TrustServerCertificate=true;Trusted_Connection=True")
 ) ;
 
 // Configure IdentityContext
