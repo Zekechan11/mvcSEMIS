@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<PelayosemisContext>( options => 
-    options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=LawasUtangananT;TrustServerCertificate=true;Trusted_Connection=True")
+    options.UseSqlServer("Server=LOCALHOST\\SQLEXPRESS;Database=Lawas;TrustServerCertificate=true;Trusted_Connection=True")
 ) ;
 
 // Configure IdentityContext
 builder.Services.AddDbContext<IdentityContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("localhost\\SQLEXPRESS;Database=LawasUtangananT;TrustServerCertificate=true;Trusted_Connection=True")));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("Server=LOCALHOST\\SQLEXPRESS;Database=Lawas;TrustServerCertificate=true;Trusted_Connection=True")));
 
 builder.Services.AddIdentity<AppUser, AppRole>(
     options =>
@@ -50,6 +50,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Client}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
