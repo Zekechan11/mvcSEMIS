@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using semissssloan.Entities;
 
 namespace semissssloan.Controllers
 {
+    [Authorize]
     public class UserTypeController : Controller
     {
         private readonly PelayosemisContext _context;
